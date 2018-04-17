@@ -75,14 +75,19 @@ export default class App extends React.Component {
       <Bubble
         {...props}
         textStyle={{
+          left: {
+            color: 'black'
+          },
           right: {
             color: 'white'
-          },
+          }
         }}
         wrapperStyle={{
           left: {
-            color: 'black',
-            backgroundColor: 'lightgray',
+            backgroundColor: 'lightgrey'
+          },
+          right: {
+            backgroundColor: 'grey'
           },
         }}
       />
