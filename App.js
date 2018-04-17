@@ -88,19 +88,31 @@ export default class App extends React.Component {
           },
           right: {
             backgroundColor: 'grey'
-          },
+          }
         }}
       />
     );
+  }
+
+  resetDemo () {
+    this.setState(previousState => ({
+      messages: GiftedChat.append([], previousState.messages[previousState.messages.length - 1]),
+    }))
+  }
+
+  renderCenterComponent () {
+    return  { text: 'Marriot', style: { color: '#000' } }
   }
 
   render() {
     return (
       <View style={styles.container}>
         <Header
-          leftComponent={{ icon: 'menu', color: '#fff' }}
-          centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
-          rightComponent={{ icon: 'home', color: '#fff' }}
+          outerContainerStyles={{ backgroundColor: 'white' }}
+          leftComponent={{ icon: 'arrow-left', color: '#000', type: 'simple-line-icon', size: 16 }}
+          centerComponent={ this.renderCenterComponent() }
+          rightComponent={{ icon: 'info', color: '#000', type: 'simple-line-icon', size: 18, 
+            onPress: this.resetDemo.bind(this, null)}}
         />
         <GiftedChat
           messages={this.state.messages}
