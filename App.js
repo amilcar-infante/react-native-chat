@@ -2,6 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Header } from 'react-native-elements';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import HeaderCenter from './js/HeaderCenter';
+
+let HeaderIcon = require('./images/marriott-title.png');
 
 export default class App extends React.Component {
   state = {
@@ -100,18 +103,15 @@ export default class App extends React.Component {
     }))
   }
 
-  renderCenterComponent () {
-    return  { text: 'Marriot', style: { color: '#000' } }
-  }
-
   render() {
     return (
       <View style={styles.container}>
         <Header
-          outerContainerStyles={{ backgroundColor: 'white' }}
-          leftComponent={{ icon: 'arrow-left', color: '#000', type: 'simple-line-icon', size: 16 }}
-          centerComponent={ this.renderCenterComponent() }
-          rightComponent={{ icon: 'info', color: '#000', type: 'simple-line-icon', size: 18, 
+          outerContainerStyles={{ backgroundColor: 'white', height: 80 }}
+          placement={ 'center' }
+          leftComponent={{ icon: 'arrow-left', color: '#000', type: 'simple-line-icon', size: 20 }}
+          centerComponent={  <HeaderCenter bodyText='Marriott' headerIcon={ HeaderIcon } /> }
+          rightComponent={{ icon: 'info', color: '#000', type: 'simple-line-icon', size: 22, 
             onPress: this.resetDemo.bind(this, null)}}
         />
         <GiftedChat
