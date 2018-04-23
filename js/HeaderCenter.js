@@ -4,13 +4,6 @@ import PropTypes from 'prop-types';
 let CheckIcon = require('../images/check.png');
 
 export default class HeaderCenter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bodyText: this.props.bodyText
-    };
-  }
-
   render() {
     return (
       <View style={ styles.base }>
@@ -20,10 +13,10 @@ export default class HeaderCenter extends React.Component {
         />
         <Text style={styles.bodyText}>
           <Text>
-            { this.state.bodyText }
+            { this.props.bodyText }
           </Text>
           {
-            this.state.bodyText ?
+            this.props.bodyText ?
               <Image
                 source={ CheckIcon }
                 style={{ width: 12, height: 12, resizeMode: 'contain', marginBottom: -5}}
@@ -60,5 +53,5 @@ HeaderCenter.defaultProps = {
 
 HeaderCenter.propTypes = {
   bodyText: PropTypes.string,
-  headerIcon: PropTypes.string
+  headerIcon: PropTypes.number
 };
