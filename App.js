@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Header } from 'react-native-elements';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import HeaderCenter from './js/HeaderCenter';
+import ComposerOverride from './js/ComposerOverride';
 
 let HeaderIcon = require('./images/marriott-title.png');
 
@@ -65,7 +66,6 @@ export default class App extends React.Component {
     messages[0].user.name = 'John Doe'
     messages[0].user.avatar = 'http://www.fillmurray.com/40/40'
 
-    //alert(JSON.stringify(messages[0]))
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }))
@@ -97,17 +97,23 @@ export default class App extends React.Component {
     );
   }
 
+  renderComposer (props) {
+    return (
+      <ComposerOverride {...props } />
+    )
+  }
+
   resetDemo () {
     this.setState(previousState => ({
       messages: GiftedChat.append([], previousState.messages[previousState.messages.length - 1]),
     }))
   }
 
-  render() {
+  render () {
     return (
-      <View style={styles.container}>
+      <View style={ styles.containerStyles }>
         <Header
-          outerContainerStyles={{ backgroundColor: 'white', height: 80 }}
+          outerContainerStyles={ styles.outerContainerStyle }
           placement={ 'center' }
           leftComponent={{ icon: 'arrow-left', color: '#000', type: 'simple-line-icon', size: 20 }}
           centerComponent={  <HeaderCenter bodyText='Marriott' headerIcon={ HeaderIcon } /> }
@@ -120,6 +126,8 @@ export default class App extends React.Component {
           showUserAvatar={true}
           showAvatarForEveryMessage={true}
           renderBubble={this.renderBubble}
+          renderComposer = { this.renderComposer }
+          containerStyle = {{ marginTop: 15 }} 
           user={{
             _id: 1,
           }}
@@ -131,19 +139,11 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
- container: {
-   flex: 1
- },
- view1: {
-   flex: 1,
-   backgroundColor: 'powderblue'
- },
- view2: {
-   flex: 2,
-   backgroundColor: 'skyblue'
- },
- view3: {
-   flex: 3,
-   backgroundColor: 'steelblue'
- }
+  containerStyles: {
+    flex: 1
+  },
+  outerContainerStyle: {
+    backgroundColor: 'white', 
+    height: 80
+  }
 });
