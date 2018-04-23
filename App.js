@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Keyboard } from 'react-native';
 import { Header } from 'react-native-elements';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import HeaderCenter from './js/HeaderCenter';
@@ -8,8 +8,18 @@ import ComposerOverride from './js/ComposerOverride';
 let HeaderIcon = require('./images/marriott-title.png');
 
 export default class App extends React.Component {
-  state = {
-    messages: [],
+  constructor(props) {
+    super(props);
+
+    this.keyboardWillShow = this.keyboardWillShow.bind(this);
+    this.keyboardWillHide = this.keyboardWillHide.bind(this);
+
+    this.state = {
+      messages: [],
+      listViewPropSytles: { 
+        marginBottom: 35
+      }
+    }
   }
 
   componentWillMount() {
@@ -28,10 +38,33 @@ export default class App extends React.Component {
       ],
     });
     console.disableYellowBox = true;
+
+    this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
+    this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
+  }
+
+  componentWillUnmount() {
+    this.keyboardWillShowListener.remove();
+    this.keyboardWillHideListener.remove();
+  }
+
+  keyboardWillShow() {
+    this.setState({
+      listViewPropSytles: { 
+        marginBottom: 0
+      }
+    })
+  }
+
+  keyboardWillHide() {
+    this.setState({
+      listViewPropSytles: { 
+        marginBottom: 35
+      }
+    })
   }
 
   autoReply(message) {
-    //alert('autoReply ' + JSON.stringify(message))
     let messageReply = {
       _id: this.state.messages.length + 1,
       createdAt: new Date(),
@@ -123,11 +156,14 @@ export default class App extends React.Component {
         <GiftedChat
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
-          showUserAvatar={true}
-          showAvatarForEveryMessage={true}
-          renderBubble={this.renderBubble}
+          renderAvatar={ null }
+          showUserAvatar={ false }
+          showAvatarForEveryMessage={ true }
+          renderBubble={ this.renderBubble }
           renderComposer = { this.renderComposer }
-          containerStyle = {{ marginTop: 15 }} 
+          bottomOffset = { -6 }
+          containerStyle= {{ height: 80 }}
+          listViewProps = { this.state.listViewPropSytles }
           user={{
             _id: 1,
           }}
