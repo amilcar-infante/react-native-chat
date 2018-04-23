@@ -35,10 +35,10 @@ export default class ComposerOverride extends React.Component {
   onSend () {
     this.props.onSend({ text: this.state.text.trim() }, true);
     this.setState({
+      inputIcon: MicrophoneIcon,
       text: ''
     })
   }
-
 
   render() {
     return (
@@ -52,9 +52,12 @@ export default class ComposerOverride extends React.Component {
           style={ styles.appStoreIconStyles }
         />
         <View>
-          <Composer {...this.props} placeholder='To: Marriott' text={ this.state.text }
+          <Composer {...this.props} 
+            placeholder='To: Marriott' 
+            text={ this.state.text }
             textInputStyle={ styles.composerStyles }
-            onTextChanged={ this.onTextChanged.bind(this) } />
+            onTextChanged={ this.onTextChanged.bind(this) }
+            onInputSizeChanged={ this.onInputSizeChanged } />
           <TouchableOpacity
             style={ styles.containerStyles }
             onPress={() => {
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
     borderRadius: 20, 
     fontSize: 16,
     lineHeight: 16,
-    marginTop: 8,
+    marginTop: 9,
     marginBottom: 10,
     marginRight: 0,
     marginLeft: 10
