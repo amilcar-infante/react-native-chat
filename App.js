@@ -81,7 +81,10 @@ export default class App extends React.Component {
       messageReply.text =  'Sure, what do you need?'      
     } else if ( message.text === 'I need a new pair of shoes') {
       messageReply.text =  'Do you have something in mind?'      
-    }
+    } else if ( message.text === 'Image') {
+      messageReply.text =  'This is my uncle'
+      messageReply.image = 'http://www.placecage.com/40/40'      
+    } 
 
     if ( messageReply.text ) {
       setTimeout( () => (
@@ -144,7 +147,7 @@ export default class App extends React.Component {
 
   render () {
     return (
-      <View style={ styles.containerStyles }>
+      <View style={ styles.containerStyles } >
         <Header
           outerContainerStyles={ styles.outerContainerStyle }
           placement={ 'center' }
@@ -153,7 +156,7 @@ export default class App extends React.Component {
           rightComponent={{ icon: 'info', color: '#000', type: 'simple-line-icon', size: 22, 
             onPress: this.resetDemo.bind(this, null)}}
         />
-        <GiftedChat
+        <GiftedChat 
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           renderAvatar={ null }

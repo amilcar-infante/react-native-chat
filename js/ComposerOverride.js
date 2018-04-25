@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Composer } from 'react-native-gifted-chat';
 import PropTypes from 'prop-types';
+import ImagePickerExt from './ImagePickerExt';
 
 let CameraIcon = require('../images/camera.png'),
   AppStoreIcon = require('../images/app-store.png'),
@@ -40,13 +41,17 @@ export default class ComposerOverride extends React.Component {
     })
   }
 
+  onSelect (image) {
+    this.props.onSend({ image: image}, true)
+  }
+
   render() {
     return (
       <View style={ styles.baseStyles }> 
-        <Image
-          source={ CameraIcon }
-          style={ styles.cameraIconStyles }
-        />
+        <ImagePickerExt 
+          onSelect={  this.onSelect.bind(this) }
+          iconStyle={ styles.cameraIconStyles }
+          containerStyle={ styles.cameraIconContainerStyles } />
         <Image
           source={ AppStoreIcon }
           style={ styles.appStoreIconStyles }
@@ -83,10 +88,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   cameraIconStyles: { 
-    width: 28, 
-    resizeMode: 'contain', 
+    width: 28
+  },
+  cameraIconContainerStyles: { 
     marginLeft: 12, 
-    paddingBottom: 10 
+    paddingTop: 1 
   },
   appStoreIconStyles: { 
     width: 28, 
